@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MvcProject1.Models.ViewModels.BookViewModel>
+
+@{
+    ViewData["Title"] = "Kitap Listesi";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Yazar</th>
+            <th>Tür</th>
+            <th>Yayın Tarihi</th>
+            <th>ISBN</th>
+            <th>Kopya Sayısı</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.AuthorFullName</td>
+                <td>@book.Genre</td>
+                <td>@book.PublishDate.ToString("yyyy-MM-dd")</td>
+                <td>@book.ISBN</td>
+                <td>@book.CopiesAvailable</td>
+                <td>
+                    <a href="@Url.Action("Details", "Book", new { id = book.Id })" class="btn btn-info">Detaylar</a>
+                    <a href="@Url.Action("Edit", "Book", new { id = book.Id })" class="btn btn-warning">Düzenle</a>
+                    <a href="@Url.Action("Delete", "Book", new { id = book.Id })" class="btn btn-danger">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("Create", "Book")" class="btn btn-primary">Yeni Kitap Ekle</a>

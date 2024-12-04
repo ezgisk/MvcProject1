@@ -1,0 +1,19 @@
+﻿@model MvcProject1.Models.Author
+
+@{
+    ViewData["Title"] = "Yazar Detayı";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <strong>Adı:</strong> @Model.FirstName
+</div>
+<div>
+    <strong>Soyadı:</strong> @Model.LastName
+</div>
+<div>
+    <strong>Doğum Tarihi:</strong> @Model.DateOfBirth.ToString("yyyy-MM-dd")
+</div>
+
+<a href="@Url.Action("List", "Author")" class="btn btn-secondary">G

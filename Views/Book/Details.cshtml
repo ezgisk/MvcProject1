@@ -1,0 +1,28 @@
+﻿@model MvcProject1.Models.ViewModels.BookViewModel
+
+@{
+    ViewData["Title"] = "Kitap Detayı";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <strong>Başlık:</strong> @Model.Title
+</div>
+<div>
+    <strong>Yazar:</strong> @Model.AuthorFullName
+</div>
+<div>
+    <strong>Tür:</strong> @Model.Genre
+</div>
+<div>
+    <strong>Yayın Tarihi:</strong> @Model.PublishDate.ToString("yyyy-MM-dd")
+</div>
+<div>
+    <strong>ISBN:</strong> @Model.ISBN
+</div>
+<div>
+    <strong>Kopya Sayısı:</strong> @Model.CopiesAvailable
+</div>
+
+<a href="@Url.Action("List", "Book")" class="btn btn-secondary">Geri</a>

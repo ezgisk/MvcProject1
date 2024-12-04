@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Kütüphane Yönetim Sistemi";
+}
+<div b-8nvebhdgf7="" class="main-content" style="min-height: 100vh; padding: 20px;">
+    <div class="container-fluid p-4">
+        <!-- Jumbotron -->
+        <div class="jumbotron text-center" style="background-color: #0056b3; color: white; border-radius: 15px; padding: 50px 15px; margin-bottom: 30px;">
+            <h1 class="display-4">Hoş Geldiniz!</h1>
+            <p class="lead">Kütüphane Yönetim Sistemine hoş geldiniz. Kitaplar, yazarlar ve daha fazlası hakkında bilgi alabilirsiniz.</p>
+            <hr class="my-4" style="border-color: white; border-width: 2px;">
+            <p class="lead">İlgili bölümlere gitmek için aşağıdaki bağlantılara tıklayın:</p>
+        </div>
+
+        <!-- Content Section -->
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <!-- Kitaplar Card -->
+                <div class="col-md-4 mb-5">
+                    <div class="card shadow-lg border-0 rounded" style="background: linear-gradient(to top right, #6f86d6, #48c6ef);">
+                        <img src="/img/Kitap.jpg" class="card-img-top rounded-top" alt="Kitaplar" style="object-fit: cover;">
+                        <div class="card-body text-center text-white">
+                            <h5 class="card-title font-weight-bold">Kitaplar</h5>
+                            <p class="card-text">Kitaplarınızı yönetin, yeni kitaplar ekleyin veya mevcut kitapların detaylarını inceleyin.</p>
+                            <a href="/Book/List" class="btn btn-light btn-lg shadow-sm">Kitaplar Listesi</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yazarlar Card -->
+                <div class="col-md-4 mb-5">
+                    <div class="card shadow-lg border-0 rounded" style="background: linear-gradient(to top right, #ff7e5f, #feb47b);">
+                        <img src="/img/Yazar.jpg" class="card-img-top rounded-top" alt="Yazarlar" style="object-fit: cover;">
+                        <div class="card-body text-center text-white">
+                            <h5 class="card-title font-weight-bold">Yazarlar</h5>
+                            <p class="card-text">Yazarları ekleyin, düzenleyin ve mevcut yazarlar hakkında bilgi edinin.</p>
+                            <a href="/Author/List" class="btn btn-light btn-lg shadow-sm">Yazarlar Listesi</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Her view buraya render edilir. -->
+</div>

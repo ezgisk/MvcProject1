@@ -1,0 +1,24 @@
+﻿@model MvcProject1.Models.Book
+
+@{
+    ViewData["Title"] = "Kitap Sil";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Kitap: @Model.Title</h4>
+    <p>Bu kitabı silmek istediğinizden emin misiniz?</p>
+    <p>
+        <strong>Yazar:</strong> @Model.AuthorId<br />
+        <strong>Tür:</strong> @Model.Genre<br />
+        <strong>Yayın Tarihi:</strong> @Model.PublishDate.ToString("yyyy-MM-dd")<br />
+        <strong>ISBN:</strong> @Model.ISBN<br />
+        <strong>Mevcut Kopya Sayısı:</strong> @Model.CopiesAvailable
+    </p>
+
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a href="@Url.Action("List", "Book")" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+﻿@model MvcProject1.Models.Book
+
+@{
+    ViewData["Title"] = "Yeni Kitap Ekle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" asp-action="Create">
+    <div class="form-group">
+        <label for="Title">Başlık</label>
+        <input type="text" class="form-control" id="Title" name="Title" required />
+    </div>
+    <div class="form-group">
+        <label for="AuthorId">Yazar</label>
+        <select class="form-control" id="AuthorId" name="AuthorId" required>
+            <option value="">Yazar Seçin</option> <!-- Varsayılan boş seçenek -->
+            @foreach (var author in ViewBag.Authors as List<SelectListItem>)
+            {
+                <option value="@author.Value">@author.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Genre">Tür</label>
+        <input type="text" class="form-control" id="Genre" name="Genre" required />
+    </div>
+    <div class="form-group">
+        <label for="PublishDate">Yayın Tarihi</label>
+        <input type="date" class="form-control" id="PublishDate" name="PublishDate" required />
+    </div>
+    <div class="form-group">
+        <label for="ISBN">ISBN</label>
+        <input type="text" class="form-control" id="ISBN" name="ISBN" required />
+    </div>
+    <div class="form-group">
+        <label for="CopiesAvailable">Kopya Sayısı</label>
+        <input type="number" class="form-control" id="CopiesAvailable" name="CopiesAvailable" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+<a href="@Url.Action("List", "Book")" class="btn btn-secondary">Geri</a>
