@@ -6,21 +6,6 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">@Model.FirstName @Model.LastName</h4>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <strong>Adı:</strong> @Model.FirstName
-            </li>
-            <li class="list-group-item">
-                <strong>Soyadı:</strong> @Model.LastName
-            </li>
-            <li class="list-group-item">
-                <strong>Doğum Tarihi:</strong> @Model.DateOfBirth.ToString("yyyy-MM-dd")
-            </li>
-        </ul>
-    </div>
-</div>
+@Html.Partial("_AuthorDetails", Model)
 
 <a href="@Url.Action("List", "Author")" class="btn btn-secondary mt-3">Geri</a>

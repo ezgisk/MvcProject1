@@ -21,7 +21,9 @@
         <input type="date" class="form-control" id="DateOfBirth" name="DateOfBirth" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" required />
     </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <!-- Butonlar için düzenleme -->
+    <div class="d-flex" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary me-3">Kaydet</button>
+        <a href="/Author/List" class="btn btn-secondary">Geri</a>
+    </div>
 </form>
-
-<a href="@Url.Action("List", "Author")" class="btn btn-secondary">Geri</a>

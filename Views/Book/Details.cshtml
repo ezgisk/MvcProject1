@@ -6,23 +6,17 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div>
-    <strong>Başlık:</strong> @Model.Title
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Kitap Detayı</h5>
+        <p class="card-text">
+            <strong>Başlık:</strong> @Model.Title <br />
+            <strong>Yazar:</strong> @Model.AuthorFullName <br />
+            <strong>Tür:</strong> @Model.Genre <br />
+            <strong>Yayın Tarihi:</strong> @Model.PublishDate.ToString("yyyy-MM-dd") <br />
+            <strong>ISBN:</strong> @Model.ISBN <br />
+            <strong>Kopya Sayısı:</strong> @Model.CopiesAvailable <br />
+        </p>
+        <a href="@Url.Action("List", "Book")" class="btn btn-secondary mt-3">Geri</a>
+    </div>
 </div>
-<div>
-    <strong>Yazar:</strong> @Model.AuthorFullName
-</div>
-<div>
-    <strong>Tür:</strong> @Model.Genre
-</div>
-<div>
-    <strong>Yayın Tarihi:</strong> @Model.PublishDate.ToString("yyyy-MM-dd")
-</div>
-<div>
-    <strong>ISBN:</strong> @Model.ISBN
-</div>
-<div>
-    <strong>Kopya Sayısı:</strong> @Model.CopiesAvailable
-</div>
-
-<a href="@Url.Action("List", "Book")" class="btn btn-secondary">Geri</a>
