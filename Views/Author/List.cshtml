@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MvcProject1.Models.ViewModels.AuthorViewModel>
+﻿@model List<MvcProject1.Models.ViewModels.AuthorViewModel>
 
 @{
     ViewData["Title"] = "Yazar Listesi";
@@ -6,12 +6,19 @@
 
 <h2>@ViewData["Title"]</h2>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
-            <th>Adı</th>
-            <th>Soyadı</th>
+            <th>Ad Soyad</th>
             <th>Doğum Tarihi</th>
+            <th>Kitap Sayısı</th>
             <th>İşlemler</th>
         </tr>
     </thead>
@@ -20,14 +27,14 @@
         {
             <tr>
                 <td>@author.FullName</td>
-                <td>@author.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                <td>@author.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                <td>@author.BookCount</td>
                 <td>
-                    <a href="@Url.Action("Details", "Author", new { id = author.Id })" class="btn btn-info">Detaylar</a>
-                    <a href="@Url.Action("Edit", "Author", new { id = author.Id })" class="btn btn-warning">Düzenle</a>
-                    <a href="@Url.Action("Delete", "Author", new { id = author.Id })" class="btn btn-danger">Sil</a>
+                    <a class="btn btn-primary" href="@Url.Action("Details", "Author", new { id = author.Id })">Detaylar</a>
+                    <a class="btn btn-warning" href="@Url.Action("Edit", "Author", new { id = author.Id })">Düzenle</a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Author", new { id = author.Id })">Sil</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<a href="@Url.Action("Create", "Author")" class="btn btn-primary">Yeni Yazar Ekle</a>
