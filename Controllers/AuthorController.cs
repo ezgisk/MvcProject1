@@ -5,7 +5,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 public class AuthorController : Controller
 {
-    private static List<Author> authors = new List<Author>
+    public static List<Author> authors = new List<Author>
 {
     new Author { Id = 1, FirstName = "John", LastName = "Doe", DateOfBirth = new DateTime(1985, 3, 10) },
     new Author { Id = 2, FirstName = "Jane", LastName = "Smith", DateOfBirth = new DateTime(1990, 7, 25) },
@@ -56,10 +56,12 @@ public class AuthorController : Controller
     [HttpPost]
     public IActionResult Create(Author author)
     {
-        // Yeni yazarı ekle
-        authors.Add(author);
+        if (authors.Any())
+            author.Id = authors.Max(a => a.Id) + 1; // Yeni yazarın ID'sini oluştur
+        else
+            author.Id = 1;
 
-        // Yazarlar listesine yönlendir
+        authors.Add(author); // Listeye ekle
         return RedirectToAction("List");
     }
 

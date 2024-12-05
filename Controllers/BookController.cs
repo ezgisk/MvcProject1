@@ -57,107 +57,110 @@ public class BookController : Controller
 
     public IActionResult List()
     {
-        var viewModel = books.Select(b => new BookViewModel
+        var bookViewModels = books.Select(book => new BookViewModel
         {
-            Id = b.Id,
-            Title = b.Title,
-            AuthorFullName = $"{authors.FirstOrDefault(a => a.Id == b.AuthorId)?.FirstName} {authors.FirstOrDefault(a => a.Id == b.AuthorId)?.LastName}",
-            Genre = b.Genre,
-            PublishDate = b.PublishDate,
-            ISBN = b.ISBN,
-            CopiesAvailable = b.CopiesAvailable
+            Id = book.Id,
+            Title = book.Title,
+            Genre = book.Genre,
+            PublishDate = book.PublishDate,
+            ISBN = book.ISBN,
+            CopiesAvailable = book.CopiesAvailable,
+            AuthorFullName = AuthorController.authors
+                .FirstOrDefault(author => author.Id == book.AuthorId)?.FirstName + " " +
+                               AuthorController.authors
+                .FirstOrDefault(author => author.Id == book.AuthorId)?.LastName
         }).ToList();
 
-        return View(viewModel);
+        return View(bookViewModels);
     }
 
     public IActionResult Details(int id)
     {
         var book = books.FirstOrDefault(b => b.Id == id);
-        var author = authors.FirstOrDefault(a => a.Id == book?.AuthorId);
+        if (book == null)
+        {
+            return NotFound(); // Eğer kitap bulunamazsa 404 döner
+        }
 
-        var viewModel = new BookViewModel
+        var author = AuthorController.authors.FirstOrDefault(a => a.Id == book.AuthorId);
+        var bookViewModel = new BookViewModel
         {
             Id = book.Id,
             Title = book.Title,
-            AuthorFullName = $"{author?.FirstName} {author?.LastName}",
             Genre = book.Genre,
             PublishDate = book.PublishDate,
             ISBN = book.ISBN,
-            CopiesAvailable = book.CopiesAvailable
+            CopiesAvailable = book.CopiesAvailable,
+            AuthorFullName = author != null ? $"{author.FirstName} {author.LastName}" : "Bilinmiyor"
         };
 
-        return View(viewModel);
+        return View(bookViewModel);
     }
+
 
     public IActionResult Create()
     {
-        // Yazarlar listesini oluşturuyoruz
-        var authorsList = authors.Select(a => new SelectListItem
+        // Yazar listesini ViewBag ile gönder
+        ViewBag.Authors = AuthorController.authors.Select(a => new SelectListItem
         {
-            Value = a.Id.ToString(),  // Yazarın Id'si
-            Text = $"{a.FirstName} {a.LastName}"  // Yazarın tam adı
+            Value = a.Id.ToString(),
+            Text = $"{a.FirstName} {a.LastName}"
         }).ToList();
-
-        // View'a yazarlar listesini gönderiyoruz
-        ViewBag.Authors = authorsList;
 
         return View();
     }
 
-
     [HttpPost]
     public IActionResult Create(Book book)
     {
-        books.Add(book);
+        if (books.Any())
+            book.Id = books.Max(b => b.Id) + 1; // Yeni kitabın ID'sini oluştur
+        else
+            book.Id = 1;
+
+        books.Add(book); // Kitabı listeye ekle
         return RedirectToAction("List");
     }
 
     public IActionResult Edit(int id)
     {
-        // Kitap verisini al
         var book = books.FirstOrDefault(b => b.Id == id);
         if (book == null)
         {
-            return NotFound(); // Kitap bulunamazsa 404 döndür
+            return NotFound(); // Kitap bulunamazsa 404 döner
         }
 
-        // Yazarları ViewBag ile gönder (Yazarlar listesi)
-        ViewBag.Authors = authors.Select(a => new SelectListItem
+        // Yazar listesini ViewBag ile gönder
+        ViewBag.Authors = AuthorController.authors.Select(a => new SelectListItem
         {
             Value = a.Id.ToString(),
             Text = $"{a.FirstName} {a.LastName}",
-            Selected = a.Id == book.AuthorId // Eğer yazar mevcut kitaba aitse seçili yap
+            Selected = a.Id == book.AuthorId // Kitaba atanmış yazar seçili olacak
         }).ToList();
 
-        // Kitap modelini View'a gönder
         return View(book);
     }
-
-
-
 
     [HttpPost]
     public IActionResult Edit(Book book)
     {
-        // Geçerli kitabı bul
         var existingBook = books.FirstOrDefault(b => b.Id == book.Id);
         if (existingBook == null)
         {
-            return NotFound(); // Kitap bulunamazsa 404 döndür
+            return NotFound(); // Kitap bulunamazsa 404 döner
         }
 
         // Kitap bilgilerini güncelle
         existingBook.Title = book.Title;
-        existingBook.AuthorId = book.AuthorId; // Yazar ID'sini güncelle
+        existingBook.AuthorId = book.AuthorId;
         existingBook.Genre = book.Genre;
         existingBook.PublishDate = book.PublishDate;
         existingBook.ISBN = book.ISBN;
         existingBook.CopiesAvailable = book.CopiesAvailable;
 
-        // Kitapları listeye geri kaydet
-        return RedirectToAction("List");
+        return RedirectToAction("List"); // Kitap listesine yönlendir
     }
+
 
 
     // Delete metodunda, silinecek kitabın bilgilerini gösteriyoruz
