@@ -20,7 +20,8 @@
         <input type="date" class="form-control" id="DateOfBirth" name="DateOfBirth" required />
     </div>
 
-    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <div class="button-group mt-3" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+        <a href="@Url.Action("List", "Author")" class="btn btn-secondary">Geri</a>
+    </div>
 </form>
-
-<a href="@Url.Action("List", "Author")" class="btn btn-secondary">Geri</a>

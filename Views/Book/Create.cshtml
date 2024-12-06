@@ -37,7 +37,9 @@
         <label for="CopiesAvailable">Kopya Sayısı</label>
         <input type="number" class="form-control" id="CopiesAvailable" name="CopiesAvailable" required />
     </div>
-    <button type="submit" class="btn btn-primary">Kaydet</button>
-</form>
 
-<a href="@Url.Action("List", "Book")" class="btn btn-secondary">Geri</a>
+    <div class="button-group mt-3" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+        <a href="@Url.Action("List", "Book")" class="btn btn-secondary">Geri</a>
+    </div>
+</form>
